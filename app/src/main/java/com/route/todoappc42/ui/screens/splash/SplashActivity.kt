@@ -1,12 +1,11 @@
-package com.route.todoappc42
+package com.route.todoappc42.ui.screens.splash
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.route.todoappc42.R
+import com.route.todoappc42.ui.screens.main.MainActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

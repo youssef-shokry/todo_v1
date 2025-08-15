@@ -12,4 +12,41 @@
     <style name="circlularFab" parent="ShapeAppearanceOverlay.Material3.FloatingActionButton">
         <item name="cornerSize">70%</item>
     </style>
+
+    <style name="titleMedium">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="labelMedium">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">
+            normal
+        </item>
+        <item name="android:textColor">@color/grey2</item>
+    </style>
+
+    <style name="labelSmall">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/grey3</item>
+    </style>
+
+    <style name="headLineMedium">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <style name="titleLarge">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="primaryBtn">
+        <item name="android:backgroundTint">@color/blue</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>
