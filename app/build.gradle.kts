@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.swipelayout)
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)
+    implementation("com.kizitonwose.calendar:view:2.6.2")
 //    implementation(libs.view)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

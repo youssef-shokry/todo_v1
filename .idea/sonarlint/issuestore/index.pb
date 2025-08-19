@@ -70,3 +70,7 @@ g
 7app/src/main/java/com/route/todoappc42/MyApplication.kt,e/e/eea6d9e166dd41bd65d3c32e5693d6e554f8d699
 z
 Japp/src/main/java/com/route/todoappc42/ui/screens/splash/SplashActivity.kt,2/c/2c1f377bd6916688b19af29ebdf4f53fffb3ca5a
+‹
+[app/src/main/java/com/route/todoappc42/ui/screens/main/fragments/todo_list/DayViewHolder.kt,1/f/1fe617c6f04e739613693436237e41ec51214fdc
+Œ
+\app/src/main/java/com/route/todoappc42/ui/screens/main/fragments/todo_list/WeekViewHolder.kt,0/f/0f67866d4ab7e81e2088e623e9a720ef1d750e66
