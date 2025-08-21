@@ -13,13 +13,15 @@ import com.route.todoappc42.databinding.BottomSheetAddTodoBinding
 import com.route.todoappc42.ui.model.Todo
 import com.route.todoappc42.ui.utils.getFormattedDate
 import com.route.todoappc42.ui.utils.getFormattedTime
+import com.route.todoappc42.ui.utils.showDatePicker
+import com.route.todoappc42.ui.utils.showTimePicker
 import java.util.Calendar
 
 class AddTodoBottomSheet(var onAddClick: ()->Unit) : BottomSheetDialogFragment() {
 
     lateinit var binding: BottomSheetAddTodoBinding
 
-    var selectedDate = Calendar.getInstance()
+    var selectedDate: Calendar = Calendar.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,31 +62,34 @@ class AddTodoBottomSheet(var onAddClick: ()->Unit) : BottomSheetDialogFragment()
         }
 
         binding.selectedDate.setOnClickListener {
-            val picker = DatePickerDialog(
-                requireContext(), { p0, year, month, day ->
-                    selectedDate[Calendar.YEAR] = year
-                    selectedDate[Calendar.MONTH] = month
-                    selectedDate[Calendar.DAY_OF_MONTH] = day
-                    bindDate()
-                },
-                selectedDate[Calendar.YEAR],
-                selectedDate[Calendar.MONTH],
-                selectedDate[Calendar.DAY_OF_MONTH]
-            )
-            picker.show()
+            showDatePicker(requireContext(), selectedDate) {
+                bindDate()
+            }
+//            val picker = DatePickerDialog(requireContext(), { p0, year, month, day ->
+//                    selectedDate[Calendar.YEAR] = year
+//                    selectedDate[Calendar.MONTH] = month
+//                    selectedDate[Calendar.DAY_OF_MONTH] = day
+//                    bindDate()
+//                }, selectedDate[Calendar.YEAR], selectedDate[Calendar.MONTH],
+//                selectedDate[Calendar.DAY_OF_MONTH])
+//            picker.show()
         }
 
         binding.selectedTime.setOnClickListener {
-            val picker = TimePickerDialog(requireContext(),
-                { p0, hour, minute ->
-                    selectedDate[Calendar.HOUR_OF_DAY] = hour
-                    selectedDate[Calendar.MINUTE] = minute
-                    bindTime()
-                }, selectedDate[Calendar.HOUR_OF_DAY], selectedDate[Calendar.MINUTE], true
-            )
-            picker.show()
-        }
+            showTimePicker(requireContext(), selectedDate) {
+                bindTime()
+            }
+//            val picker = TimePickerDialog(requireContext(),
+//                { p0, hour, minute ->
+//                    selectedDate[Calendar.HOUR_OF_DAY] = hour
+//                    selectedDate[Calendar.MINUTE] = minute
+//                    bindTime()
+//                }, selectedDate[Calendar.HOUR_OF_DAY], selectedDate[Calendar.MINUTE], true
+//            )
+//            picker.show()
+//        }
 
+        }
     }
 
     private fun isValidForm(): Boolean {

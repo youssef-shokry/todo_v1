@@ -9,11 +9,11 @@ data class Todo(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     @ColumnInfo
-    val title: String = "",
+    var title: String,
     @ColumnInfo
-    val description: String = "",
+    var description: String,
     @ColumnInfo
-    val date: Long,
+    var date: Long,
     @ColumnInfo
-    val isDone: Boolean,
+    var isDone: Boolean
 )

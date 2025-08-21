@@ -1,6 +1,7 @@
 package com.route.todoappc42.ui.screens.main.fragments.todo_list
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,10 +25,8 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.ZoneId
-import java.time.format.DateTimeFormatter
-import java.util.Calendar
 
-class TodoListFragment : BottomSheetDialogFragment() {
+class TodoListFragment : BottomSheetDialogFragment(), EditTaskFragment.OnTaskEditedListener {
 
     lateinit var binding: FragmentTodoListBinding
     var adapter = TodosAdapter(emptyList())
@@ -61,7 +60,7 @@ class TodoListFragment : BottomSheetDialogFragment() {
                 container.day.text = data.date.dayOfMonth.toString()
                 container.name.text = data.date.dayOfWeek.name
                 container.view.setOnClickListener {
-                    var tempDate = selectedDate.copy()
+                    val tempDate = selectedDate.copy()
                     selectedDate = data
                     binding.calendarView.notifyDayChanged(tempDate)
                     binding.calendarView.notifyDayChanged(data)
@@ -84,6 +83,7 @@ class TodoListFragment : BottomSheetDialogFragment() {
         )
         binding.calendarView.scrollToWeek(LocalDate.now())
         binding.calendarView.weekHeaderBinder = object : WeekHeaderFooterBinder<WeekViewHolder> {
+            @SuppressLint("SetTextI18n")
             override fun bind(container: WeekViewHolder, data: Week) {
                 container.week.text = "${data.days[0].date.month.name} - ${data.days[0].date.year}"
             }
@@ -97,12 +97,10 @@ class TodoListFragment : BottomSheetDialogFragment() {
     fun refreshTodosList() {
         var todos = MyDatabase.getInstance().getTodoDao().getAllTodos()
         todos = todos.filter {
-            val todoDate = Instant.ofEpochMilli(it.date)
-                .atZone(ZoneId.systemDefault())
+            val todoDate = Instant.ofEpochMilli(it.date).atZone(ZoneId.systemDefault())
                 .toLocalDate()
 
-            return@filter todoDate.year == selectedDate.date.year
-                    && todoDate.month == selectedDate.date.month
+            return@filter todoDate.year == selectedDate.date.year && todoDate.month == selectedDate.date.month
                     && todoDate.dayOfMonth == selectedDate.date.dayOfMonth
         }
         adapter.submitList(todos)
@@ -111,9 +109,14 @@ class TodoListFragment : BottomSheetDialogFragment() {
     private fun initTodosRecycler() {
         adapter.itemClickListener = object : TodosAdapter.ItemClickListener {
             override fun onItemClick(todo: Todo) {
+                val editTaskFragment = EditTaskFragment(todo)
+                editTaskFragment.onTaskEditedListener = this@TodoListFragment
+                editTaskFragment.show(requireActivity().supportFragmentManager, null)
             }
 
             override fun onDoneClick(todo: Todo) {
+                todo.isDone = true
+                MyDatabase.getInstance().getTodoDao().updateTodo(todo)
             }
 
             override fun onDeleteClick(todo: Todo) {
@@ -123,6 +126,11 @@ class TodoListFragment : BottomSheetDialogFragment() {
 
         }
         binding.todosRecycler.adapter = adapter
+    }
+
+
+    override fun onTaskEdited(){
+        refreshTodosList()
     }
 
 }
